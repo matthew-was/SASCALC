@@ -1,0 +1,46 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>SASCALC</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link type="text/css" rel="stylesheet" href="indexstylesheet.css"/>
+        <link type="text/css" rel="stylesheet" href="slidercss.css" />
+        <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
+        <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
+        <script src="js/scripts/guideslider.js"></script>
+    </head>
+    <body>
+        <div><h1>SASCALC: The Small Angle Scattering q-range calculator.</h1></div>
+    
+        <p id="feedback">
+            <script>
+                var result = $("#select-result").empty();
+                result = ($('input[name="radio"]:checked').val());
+            </script>
+            <span>You've selected:</span> <span id="select-result">none</span>.
+        </p>
+ 
+        <form><div id="radio">
+            <input type="radio" id="radio1" name="radio" onclick=handleClick(); value="NG3" checked="checked" /><label for="radio1">NG3</label>
+            <input type="radio" id="radio2" name="radio" onclick=handleClick(); value="NG7" /><label for="radio2">NG7</label>
+            <input type="radio" id="radio3" name="radio" onclick=handleClick(); value="NGB" /><label for="radio3">NGB</label> 
+        </div></form>
+        
+        <div id="setup">
+            
+        <div id="slider-range"></div>
+        <p>
+            <label for="guides" style ="font-size: 1.3em;">Number of Guides:</label>
+            <input type="text" id="guides" style="border: 0; color: #f6931f; font-weight: bold; font-size:1.3em;" />
+        </p>
+ 
+            
+            TODO: Fill in here.
+            
+        </div>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Button - Radios</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
+        <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
+<!--        <script src="js/scripts/guideslider.js"></script>-->
+  <link rel="stylesheet" href="sliderstyle.css" />
+  <script>
+  $(function() {
+    $( "#radio" ).buttonset();
+  });
+  </script>
+</head>
+<body>
+ 
+<form>
+  <div id="radio">
+    <input type="radio" id="radio1" name="radio" value="1" /><label for="radio1">Choice 1</label>
+    <input type="radio" id="radio2" name="radio" value="2" checked="checked" /><label for="radio2">Choice 2</label>
+    <input type="radio" id="radio3" name="radio" value="3" /><label for="radio3">Choice 3</label>
+  </div>
+</form>
+ 
+ 
+</body>
+</html>
