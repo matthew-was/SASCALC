@@ -5,15 +5,15 @@
 
 (function($) {
 
-var usefulVars = {
-    Instr:$('input[name="radio"]:checked').val()
-};
+    var usefulVars = {
+        Instr:"empty"
+    };
 
-$('input[name="radio"]:checked').val();
+    $('input[name="radio"]:checked').val();
 
-function handleClick(myRadio) {
-    usefulVars[Instr] = $('input[name="radio"]:checked').val();
-}
+    function handleClick(myRadio) {
+        usefulVars["Instr"] = $('input[name="radio"]:checked').val();
+    }
 
     $(function() {
         $( "#slider-range" ).slider({
