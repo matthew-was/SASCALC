@@ -1,6 +1,7 @@
 /* Guide Slider Details*/
 
 .ui-slider {
+        display: inline-block;
 	position: relative;
 	text-align: left;
         width:30%;
