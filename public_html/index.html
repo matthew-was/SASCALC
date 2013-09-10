@@ -12,18 +12,18 @@ and open the template in the editor.
         <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
         <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
         <script src="js/scripts/guideslider.js"></script>
-        <script type="text/java">
+<!--        <script type="text/java">
             window.onload=function(){
                     radio.handleClick();
             };
-        </script>
+        </script>-->
     </head>
     <body>
         <div><h1>SASCALC: The Small Angle Scattering q-range calculator.</h1></div>
     
-        <p id="feedback">
+<!--        <p id="feedback">
             <span>You've selected:</span> <span id="select-result">NG3</span>.
-        </p>
+        </p>-->
  
         <form><div id="radio">
             <input type="radio" id="radio1" name="radio" onclick=handleClick(); value=NG3 checked="checked" /><label for="radio1">NG3</label>
@@ -32,20 +32,30 @@ and open the template in the editor.
         </div></form>
         
         <div id="setup">
-            
-        <div id="guides-slider"></div>
-        <div id="detector-slider" style="margin-left: 100px;"></div>
-        <p>
-            <label for="guides" style ="font-size: 1.3em;">Number of Guides:</label>
-            <input type="text" id="guides" style="border: 0; color: #f6931f; font-weight: bold; font-size:1.3em;" />
-            <label for="detector" style ="font-size: 1.3em;">Sample to Detector Distance:</label>
-            <input type="text" id="detector" style="border: 0; color: #f6931f; font-weight: bold; font-size:1.3em;" />
- 
-        </p>
- 
-            
-            TODO: Fill in here.
-            
+
+            <div style ="margin: 10px; padding-bottom: 20px; ">
+                <div id="guides-slider"></div>
+                <div style="display: inline-block; vertical-align: bottom; margin-left: 15px; margin-right: 15px;">
+                    <p><input type="radio" id="se1" name="sampPosn" value="Huber" /><label for="se1">Huber</label></p>
+                    <p><input type="radio" id="se2" name="sampPosn" value="Chamber"  checked="checked" /><label for="se2">Chamber</label></p>
+                </div>
+                <div id="detector-slider"></div>
+                <div id="offset-slider" style="margin-left: 15px"></div>
+            </div>
+            <div>
+                <label for="guides" style ="font-size: 1.3em; ">Number of Guides: </label>
+                <input id="guides" />
+                <label for="detector" style ="font-size: 1.3em;">Sample to Detector Distance: </label>
+                <input id="detector" />
+                <label for="offset" style ="font-size: 1.3em;">Detector Offset is: </label>
+                <input id="offset"/>
+            </div>
+            <p style="display:inline;">
+            </p>
+            <p>
+                TODO: Fill in here.
+            </p>
+
         </div>
     </body>
 </html>
