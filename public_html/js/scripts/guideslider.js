@@ -9,7 +9,11 @@ var usefulVars = {
         offset:0,
         sampPosn:"Chamber",
         sampAp:12.7,
-        sourceAp:50.0
+        sourceAp:50.0,
+        wavelength:6.0,
+        wavelengthMin:4,
+        wavelengthMax:20,
+        wlSpread:0.125
     };
     
     function getVariables() {
@@ -18,9 +22,12 @@ var usefulVars = {
         usefulVars["detector"]= $( "#detector-slider" ).slider( "value" );
         usefulVars["offset"]= $( "#offset-slider" ).slider( "value" );
         usefulVars["sampPosn"]= $('input[name="sampPosn"]:checked').val();
-        usefulVars["sampAp"]= parseFloat($('select[id="sampAp"]').val());
+        sampApCheck();
+        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
+        usefulVars["wavelength"]=parseFloat($("#wavelength").val());
+        usefulVars["wlSpread"]=parseFloat($('select[id="wlSpread"]').val());
     };
-
+    
     function instClick(myRadio) {
         usefulVars["Instr"] = $('input[name="radio"]:checked').val();
         var result = $("#select-result").empty();
@@ -35,25 +42,33 @@ var usefulVars = {
                 usefulVars["guidesMax"] = 8;
                 usefulVars["detMin"] = 133;
                 usefulVars["detMax"] = 1377;
+                usefulVars["wavelengthMin"] = 4;
+                usefulVars["wavelengthMax"] = 20;
                 document.getElementsByName("sampPosn")[0].disabled=false;
                 document.getElementsByName("sampPosn")[1].disabled=false;
-                sourceApChange();
+                document.getElementById("lens").disabled=false;
                 break;
             case "NG7":
                 usefulVars["guidesMax"] = 8;
                 usefulVars["detMin"] = 100;
                 usefulVars["detMax"] = 1531;
+                usefulVars["wavelengthMin"] = 4;
+                usefulVars["wavelengthMax"] = 20;
                 document.getElementsByName("sampPosn")[0].disabled=false;
                 document.getElementsByName("sampPosn")[1].disabled=false;
-                sourceApChange();
+                document.getElementById("lens").disabled=false;
                 break;
             case "NGB":
                 usefulVars["guidesMax"] = 2;
                 usefulVars["detMin"] = 106;
                 usefulVars["detMax"] = 525;
+                usefulVars["wavelengthMin"] = 3;
+                usefulVars["wavelengthMax"] = 30;
                 document.getElementsByName("sampPosn")[0].disabled=true;
                 document.getElementsByName("sampPosn")[1].disabled=true;
-                sourceApChange();
+                document.getElementById("lens").checked=false;
+                document.getElementById("lens").disabled=true;
+                lenses();
                 break;
             default:
                 console.log("Something went wrong");
@@ -84,6 +99,13 @@ var usefulVars = {
             }
         });
         $( "#detector" ).val( $( "#detector-slider" ).slider( "value" ) );
+        $("#wavelength").spinner({
+            min:usefulVars["wavelengthMin"],
+            max:usefulVars["wavelengthMax"]
+        });
+        getVariables();
+        sourceApChange();
+        wlSpreadChange();
     }
 
     function sampApClick(){
@@ -98,16 +120,28 @@ var usefulVars = {
             manApVal.disabled = true;
             manApVal.value="";
         }
+        getVariables();
     }
    
     function manApChange(){
         var manApVal = document.getElementById("manAp");
         if(isNaN(parseFloat(manApVal.value)) === true ){
             manApVal.value=10;
-            usefulVars["sampAp"] = manApVal.value;
+            usefulVars["sampAp"] = parseFloat(manApVal.value);
         } else {
-            usefulVars["sampAp"] = manApVal.value;
+            usefulVars["sampAp"] = parseFloat(manApVal.value);
         }
+        getVariables();
+    };
+    
+    function sampApCheck() {
+        var manApVal = document.getElementById("manAp");
+        var sampApCheck = $('select[id="sampAp"]').val();
+        if (sampApCheck === "Other") {
+            usefulVars["sampAp"]= parseFloat(manApVal.value);
+        } else {
+            usefulVars["sampAp"]= parseFloat($('select[id="sampAp"]').val());
+        }        
     };
     
     function sourceApChange(){
@@ -117,15 +151,15 @@ var usefulVars = {
                 switch (usefulVars["guides"]) {
                     case 0:
                         $("#sourceAp").html('<option value="14.3">14.3mm</option><option value="25.4">25.4mm</option><option value="38.1">38.1mm</option>');
-                        usefulVars["sourceAp"]=$("#sourceAp").val();
+                        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
                         break
                     case 7:
                         $("#sourceAp").html('<option value="50.0">50.0mm</option><option value="25.0">25.0mm</option><option value="9.5">9.5mm</option>');
-                        usefulVars["sourceAp"]=$("#sourceAp").val();
+                        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
                         break
                     default:
                         $("#sourceAp").html('<option value="50.0">50.0mm</option>');
-                        usefulVars["sourceAp"]=$("#sourceAp").val();
+                        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
                         break
                 }
                 break
@@ -133,11 +167,11 @@ var usefulVars = {
                switch (usefulVars["guides"]) {
                     case 0:
                         $("#sourceAp").html('<option value="14.3">14.3mm</option><option value="22.2">22.2mm</option><option value="38.1">38.1mm</option>');
-                        usefulVars["sourceAp"]=$("#sourceAp").val();
+                        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
                         break
                     default:
                         $("#sourceAp").html('<option value="50.8">50.8mm</option>');
-                        usefulVars["sourceAp"]=$("#sourceAp").val();
+                        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
                         break    
                 }
                 break
@@ -145,11 +179,11 @@ var usefulVars = {
                switch (usefulVars["guides"]) {
                     case 0:
                         $("#sourceAp").html('<option value="13.0">13.0mm</option><option value="25.0">25.0mm</option><option value="38.0">38.0mm</option>');
-                        usefulVars["sourceAp"]=$("#sourceAp").val();
+                        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
                         break
                     default:
                         $("#sourceAp").html('<option value="50.0">50.0mm</option>');
-                        usefulVars["sourceAp"]=$("#sourceAp").val();
+                        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
                         break    
                 }
                 break
@@ -157,7 +191,66 @@ var usefulVars = {
     };
     
     function sourceApClick() {
-        usefulVars["sourceAp"]=$("#sourceAp").val();
+        usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
+    };
+
+    function wlSpreadChange(){
+        getVariables();
+        switch (usefulVars["Instr"]) {
+            case "NG3":
+                $("#wlSpread").html('<option value=0.109>0.109</option><option value=0.125 selected="selected">0.125</option><option value=0.236>0.236</option>');
+               break
+            case "NG7":
+                $("#wlSpread").html('<option value=0.090>0.090</option><option value=0.115 selected="selected">0.115</option><option value=0.220>0.220</option>');
+                break
+            case "NGB":
+                $("#wlSpread").html('<option value=0.100>0.100</option><option value=0.132 selected="selected">0.132</option><option value=0.154>0.154</option><option value=0.250>0.250</option>');
+                break
+        }
+        getVariables();
+    };
+    
+    function lenses() {
+    var checkedState = document.getElementById("lens").checked;
+    if (checkedState === true) {
+        cssRuleFinder();
+        $("#guides-slider").slider({
+            value:0
+        });
+        $("#guides-slider").slider("disable");
+        $( "#guides" ).val( $( "#guides-slider" ).slider( "value" ) );
+        $("#guides").spinner("disable");
+        $("#detector-slider").slider({
+           value:usefulVars["detMax"] 
+        });
+        $( "#detector" ).val( $( "#detector-slider" ).slider( "value" ) );
+        $("#offset-slider").slider({
+           value:0
+        });
+        $( "#offset" ).val( $( "#offset-slider" ).slider( "value" ) );
+        cssRuleFinder(checkedState);
+    } else {
+        $("#guides-slider").slider("enable");
+        $("#guides").spinner("enable");
+        cssRuleFinder(checkedState);
+        console.log(false);
+    }
+    };
+    
+    function cssRuleFinder(checkState) {
+        for (i=0; i < document.styleSheets.length; i++) {
+            if (document.styleSheets[i].href.indexOf("slidercss.css") !== -1) {
+                for (j=0; j < document.styleSheets[i].rules.length; j++){
+                    if (document.styleSheets[i].rules[j].selectorText === ".ui-widget-content .ui-state-default") {
+                        if (checkState === true) {
+                            document.styleSheets[i].rules[j].style.background = "lightgrey";
+                        } else {
+                            document.styleSheets[i].rules[j].style.background = "grey";                            
+                        }
+                    }
+                }
+            };
+        }
     };
     
     $(function(){
@@ -295,3 +388,28 @@ var usefulVars = {
     $(function() {
         $("#sourceAp").html('<option value="5.00">5.00cm</option>');
     });
+
+
+    $(function() {
+       $("#wavelength").spinner({
+           min:4,
+           max:20,
+           step:0.1,
+           change: function (event, ui ) {
+               getVariables();
+               checkVal= $( "#wavelength" ).spinner( "value" );
+                if ( checkVal > 20) {
+                    $( "#wavelength" ).spinner({
+                        value:20
+                    });
+                } else if ( checkVal < 4) {
+                    $( "#wavelength" ).spinner({
+                        value:4
+                    });
+                }
+                getVariables();
+            }
+       }) ;
+     });
+    
+    

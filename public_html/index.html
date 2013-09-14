@@ -50,24 +50,37 @@ and open the template in the editor.
                 <div id="detector-slider"></div>
                 <div id="offset-slider" style="margin-left: 15px;"></div>
             </div>
-            <div>
+            <p>
                 <label for="guides">Number of Guides: </label>
                 <input id="guides" />
                 <label for="detector">Sample to Detector Distance: </label>
                 <input id="detector" />
                 <label for="offset">Detector Offset is: </label>
                 <input id="offset"/>
-            </div>
-            <div style="margin-top: 10px;">
+            </p>
+            <p style="margin-top: 10px;">
                 <label for="sourceAp">Source Aperture</label>
                 <select id="sourceAp" onchange="sourceApClick();">
                 </select>
-            </div>
+            </p>
             <p>
-                TODO: Fill in here.
+                <label for="wavelength">Wavelength: </label>
+                <input id="wavelength" value="6"/>
+                <label for="wlSpread" style="margin-left: 10px">Wavelength Spread</label>
+                <select id="wlSpread">
+                    <option value=0.109>0.109</option>
+                    <option value=0.125 selected="selected">0.125</option>
+                    <option value=0.236>0.236</option>
+                </select>
+            </p>
+            <form>
+                <label for="lens">Lenses?</label>
+                <input type="checkbox" id="lens" onchange="lenses();" style="margin-left: 10px"/>
+            </form>
+            <p>
+                TO DO: Fill in here.
             </p>
 
         </div>
     </body>
 </html>
-
