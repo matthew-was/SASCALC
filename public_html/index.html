@@ -8,10 +8,10 @@ and open the template in the editor.
         <title>SASCALC</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" rel="stylesheet" href="indexstylesheet.css"/>
-        <link type="text/css" rel="stylesheet" href="slidercss.css" />
+        <link type="text/css" rel="stylesheet" href="widgetStyle.css" />
         <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
         <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
-        <script src="js/scripts/guideslider.js"></script>
+        <script src="js/scripts/widgetJava.js"></script>
     </head>
     <body>
         <div><h1>SASCALC: The Small Angle Scattering q-range calculator.</h1></div> 
@@ -23,11 +23,12 @@ and open the template in the editor.
         
         <div id="setup">
 
-            <div style ="margin: 10px; padding-bottom: 20px; ">
-                <div id="guides-slider"></div>
-                <div style="display: inline-block; vertical-align: middle; margin-left: 15px; margin-right: 15px;">
-                    <p><input type="radio" id="se1" name="sampPosn" value="Huber" /><label for="se1" style="margin-left: 5px">Huber</label></p>
-                    <p><input type="radio" id="se2" name="sampPosn" value="Chamber"  checked="checked" /><label for="se2" style="margin-left: 5px;">Chamber</label></p>
+            <div id="sliders">
+                <div id="guides-slider" ></div>
+                <div id="sampleEnvironment">
+                    <div id="sampPosn">
+                    <p><input type="radio" id="se1" name="sampPosn" value="Huber" onclick=getVariables(); /><label for="se1" style="margin-left: 5px">Huber</label></p>
+                    <p><input type="radio" id="se2" name="sampPosn" value="Chamber" checked="checked" onclick=getVariables(); /><label for="se2" style="margin-left: 5px;">Chamber</label></p></div>
                     <label for="sampAp">Sample Aperture</label>
                     <select id="sampAp" onchange=sampApClick();>
                         <option value="1.5875">1/16</option>
@@ -50,37 +51,42 @@ and open the template in the editor.
                 <div id="detector-slider"></div>
                 <div id="offset-slider" style="margin-left: 15px;"></div>
             </div>
-            <p>
+            <div id="slider1">
+                <p>
                 <label for="guides">Number of Guides: </label>
                 <input id="guides" />
-                <label for="detector">Sample to Detector Distance: </label>
-                <input id="detector" />
-                <label for="offset">Detector Offset is: </label>
-                <input id="offset"/>
-            </p>
-            <p style="margin-top: 10px;">
-                <label for="sourceAp">Source Aperture</label>
-                <select id="sourceAp" onchange="sourceApClick();">
-                </select>
-            </p>
-            <p>
+                </p>
+                <p>
+                    <label for="sourceAp">Source Aperture</label>
+                    <select id="sourceAp" onchange="sourceApClick();"></select>
+                </p>
+
+            </div>
+            <div id="slider2" >
+                <p>
+                    <label for="detector">Sample to Detector Distance: </label>
+                    <input id="detector" />
+                </p>
+                <p>
+                    <label for="offset">Detector Offset is: </label>
+                    <input id="offset"/>
+                </p>
+            </div>
+            <div>
                 <label for="wavelength">Wavelength: </label>
                 <input id="wavelength" value="6"/>
                 <label for="wlSpread" style="margin-left: 10px">Wavelength Spread</label>
-                <select id="wlSpread">
+                <select id="wlSpread" onchange="wlSpreadClick();">
                     <option value=0.109>0.109</option>
                     <option value=0.125 selected="selected">0.125</option>
                     <option value=0.236>0.236</option>
                 </select>
-            </p>
-            <form>
+            </div>
+            <div id="lenses"><form>
                 <label for="lens">Lenses?</label>
                 <input type="checkbox" id="lens" onchange="lenses();" style="margin-left: 10px"/>
-            </form>
-            <p>
-                TO DO: Fill in here.
-            </p>
-
+            </form></div>
         </div>
+        <div></div>
     </body>
 </html>

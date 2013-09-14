@@ -12,15 +12,44 @@ h1 {
 
 #radio {
     margin-top: 0.5em;
-    border:1px dashed black;
     padding: 0.5em;
-    width: 98.5%;
+    width: auto;
+    position:absolute;
+    top: 30px;
+    left: 8px;
 }
 
 #setup {
-    margin-top: 0.5em;
-    display: block;    
-    border:1px dashed black;
+    display: block;
+    border: 1px solid black;
     padding: 0.5em;
+    position:absolute;
+    top: 90px;
+    left: 8px;
+    width:800px;
+    height: 320px;
 }
 
+#sliders {
+    margin-left: 10px;
+}
+
+#sampleEnvironment {
+    display: inline-block; 
+    vertical-align: middle; 
+    margin-left: 15px; 
+    margin-right: 15px;
+}
+
+#slider1 {
+    display: inline-block;
+}
+
+#slider2 {
+    display: inline-block;
+    float: right;
+}
+
+#lenses {
+    padding-top: 10px;
+}

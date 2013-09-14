@@ -13,7 +13,8 @@ var usefulVars = {
         wavelength:6.0,
         wavelengthMin:4,
         wavelengthMax:20,
-        wlSpread:0.125
+        wlSpread:0.125,
+        lenses:true
     };
     
     function getVariables() {
@@ -26,6 +27,7 @@ var usefulVars = {
         usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
         usefulVars["wavelength"]=parseFloat($("#wavelength").val());
         usefulVars["wlSpread"]=parseFloat($('select[id="wlSpread"]').val());
+        usefulVars["lenses"]=document.getElementById("lens").checked;
     };
     
     function instClick(myRadio) {
@@ -70,8 +72,6 @@ var usefulVars = {
                 document.getElementById("lens").disabled=true;
                 lenses();
                 break;
-            default:
-                console.log("Something went wrong");
         }
         $("#guides").spinner({
            min:0,
@@ -106,6 +106,7 @@ var usefulVars = {
         getVariables();
         sourceApChange();
         wlSpreadChange();
+        lenses();
     }
 
     function sampApClick(){
@@ -194,6 +195,10 @@ var usefulVars = {
         usefulVars["sourceAp"]=parseFloat($("#sourceAp").val());
     };
 
+    function wlSpreadClick() {
+        usefulVars["wlSpread"]=parseFloat($("#wlSpread").val());
+    };
+
     function wlSpreadChange(){
         getVariables();
         switch (usefulVars["Instr"]) {
@@ -223,23 +228,34 @@ var usefulVars = {
         $("#detector-slider").slider({
            value:usefulVars["detMax"] 
         });
+        $("#detector-slider").slider("disable");
         $( "#detector" ).val( $( "#detector-slider" ).slider( "value" ) );
+        $("#detector").spinner("disable");
         $("#offset-slider").slider({
            value:0
         });
+        $("#offset-slider").slider("disable");        
         $( "#offset" ).val( $( "#offset-slider" ).slider( "value" ) );
+        $("#offset").spinner("disable");
+        $("#wavelength").spinner("value","8.4");
+        $("#wavelength").spinner("disable");
         cssRuleFinder(checkedState);
     } else {
         $("#guides-slider").slider("enable");
         $("#guides").spinner("enable");
+        $("#detector-slider").slider("enable");
+        $("#detector").spinner("enable");
+        $("#offset-slider").slider("enable");
+        $("#offset").spinner("enable");
+        $("#wavelength").spinner("enable");
         cssRuleFinder(checkedState);
-        console.log(false);
     }
+    getVariables();
     };
     
     function cssRuleFinder(checkState) {
         for (i=0; i < document.styleSheets.length; i++) {
-            if (document.styleSheets[i].href.indexOf("slidercss.css") !== -1) {
+            if (document.styleSheets[i].href.indexOf("widgetStyle.css") !== -1) {
                 for (j=0; j < document.styleSheets[i].rules.length; j++){
                     if (document.styleSheets[i].rules[j].selectorText === ".ui-widget-content .ui-state-default") {
                         if (checkState === true) {
@@ -352,7 +368,7 @@ var usefulVars = {
                 $( "#offset" ).val( ui.value );
             },
             change: function(event, ui) {
-                getVariables();  
+                getVariables();
             }
         });
         $( "#offset" ).val( $( "#offset-slider" ).slider( "value" ) );
@@ -396,7 +412,6 @@ var usefulVars = {
            max:20,
            step:0.1,
            change: function (event, ui ) {
-               getVariables();
                checkVal= $( "#wavelength" ).spinner( "value" );
                 if ( checkVal > 20) {
                     $( "#wavelength" ).spinner({
