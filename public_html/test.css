@@ -181,6 +181,7 @@ button.ui-button-icons-only {
 /* no icon support for input elements, provide padding by default */
 input.ui-button {
 	padding: .4em 1em;
+    font-size: 0.7em;
 }
 
 /* button icon element(s) */
@@ -223,6 +224,7 @@ input.ui-button::-moz-focus-inner,
 button.ui-button::-moz-focus-inner {
 	border: 0;
 	padding: 0;
+    font-size: 0.7em;
 }
 .ui-datepicker {
 	width: 17em;
@@ -797,7 +799,7 @@ body .ui-tooltip {
 .ui-widget textarea,
 .ui-widget button {
 	font-family: Verdana,Arial,sans-serif;
-	font-size: 1em;
+	font-size: 0.7em;
 }
 .ui-widget-content {
 	border: 1px solid #aaaaaa;
@@ -1174,4 +1176,7 @@ body .ui-tooltip {
 	opacity: .3;
 	filter: Alpha(Opacity=30);
 	border-radius: 8px;
+}
+label {
+    font-size:0.7em;
 }

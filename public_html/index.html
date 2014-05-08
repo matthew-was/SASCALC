@@ -4,89 +4,111 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>SASCALC</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link type="text/css" rel="stylesheet" href="indexstylesheet.css"/>
-        <link type="text/css" rel="stylesheet" href="widgetStyle.css" />
-        <script src="js/libs/jquery-1.9.0/jquery.min.js"></script>
-        <script src="js/libs/jqueryui-1.10.0/jquery-ui.min.js"></script>
-        <script src="js/scripts/widgetJava.js"></script>
-    </head>
-    <body>
-        <div><h1>SASCALC: The Small Angle Scattering q-range calculator.</h1></div> 
-        <form><div id="radio">
-            <input type="radio" id="radio1" name="radio" onclick=instClick(); value=NG3 checked="checked" /><label for="radio1">NG3</label>
-            <input type="radio" id="radio2" name="radio" onclick=instClick(); value=NG7 /><label for="radio2">NG7</label>
-            <input type="radio" id="radio3" name="radio" onclick=instClick(); value=NGB /><label for="radio3">NGB</label> 
-        </div></form>
-        
-        <div id="setup">
 
-            <div id="sliders">
-                <div id="guides-slider" ></div>
-                <div id="sampleEnvironment">
-                    <div id="sampPosn">
-                    <p><input type="radio" id="se1" name="sampPosn" value="Huber" onclick=getVariables(); /><label for="se1" style="margin-left: 5px">Huber</label></p>
-                    <p><input type="radio" id="se2" name="sampPosn" value="Chamber" checked="checked" onclick=getVariables(); /><label for="se2" style="margin-left: 5px;">Chamber</label></p></div>
-                    <label for="sampAp">Sample Aperture</label>
-                    <select id="sampAp" onchange=sampApClick();>
-                        <option value="1.5875">1/16</option>
-                        <option value="3.175">1/8</option>
-                        <option value="4.7625">3/16</option>
-                        <option value="6.35">1/4"</option>
-                        <option value="7.9375">5/16"</option>
-                        <option value="9.525">3/8"</option>
-                        <option value="11.1125">7/16</option>
-                        <option value="12.7" selected="selected">1/2"</option>
-                        <option value="14.2875">9/16"</option>
-                        <option value="15.875">5/8"</option>
-                        <option value="17.4625">11/16"</option>
-                        <option value="19.05">3/4"</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <p><label for="manAp">Aperture Diameter (mm)</label>
-                    <input id="manAp" onchange="manApChange();" disabled="disabled"/></p>
-                </div>
-                <div id="detector-slider"></div>
-                <div id="offset-slider" style="margin-left: 15px;"></div>
-            </div>
-            <div id="slider1">
-                <p>
-                <label for="guides">Number of Guides: </label>
-                <input id="guides" />
-                </p>
-                <p>
-                    <label for="sourceAp">Source Aperture</label>
-                    <select id="sourceAp" onchange="sourceApClick();"></select>
-                </p>
+<head>
+    <title>SASCALC</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" rel="stylesheet" href="indexstylesheet.css" />
+    <link type="text/css" rel="stylesheet" href="widgetStyle.css" />
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="js/scripts/widgetJava.js"></script>
+</head>
 
-            </div>
-            <div id="slider2" >
-                <p>
-                    <label for="detector">Sample to Detector Distance: </label>
-                    <input id="detector" />
-                </p>
-                <p>
-                    <label for="offset">Detector Offset is: </label>
-                    <input id="offset"/>
-                </p>
-            </div>
-            <div>
-                <label for="wavelength">Wavelength: </label>
-                <input id="wavelength" value="6"/>
-                <label for="wlSpread" style="margin-left: 10px">Wavelength Spread</label>
-                <select id="wlSpread" onchange="wlSpreadClick();">
-                    <option value=0.109>0.109</option>
-                    <option value=0.125 selected="selected">0.125</option>
-                    <option value=0.236>0.236</option>
-                </select>
-            </div>
-            <div id="lenses"><form>
-                <label for="lens">Lenses?</label>
-                <input type="checkbox" id="lens" onchange="lenses();" style="margin-left: 10px"/>
-            </form></div>
+<body>
+    <div>
+        <h1>SASCALC: The Small Angle Scattering q-range calculator.</h1>
+    </div>
+    <form>
+        <div id="radio">
+            <input type="radio" id="radio1" name="radio" onclick=instClick(); value=NG3 checked="checked" />
+            <label for="radio1">NG3</label>
+            <input type="radio" id="radio2" name="radio" onclick=instClick(); value=NG7 />
+            <label for="radio2">NG7</label>
+            <input type="radio" id="radio3" name="radio" onclick=instClick(); value=NGB />
+            <label for="radio3">NGB</label>
         </div>
-        <div></div>
-    </body>
+    </form>
+
+    <div id="setup">
+
+        <div id="sliders">
+            <div id="guides-slider"></div>
+            <div id="sampleEnvironment">
+                <div id="sampPosn">
+                    <p>
+                        <input type="radio" id="se1" name="sampPosn" value="Huber" onclick=getVariables(); />
+                        <label for="se1" style="margin-left: 5px">Huber</label>
+                    </p>
+                    <p>
+                        <input type="radio" id="se2" name="sampPosn" value="Chamber" checked="checked" onclick=getVariables(); />
+                        <label for="se2" style="margin-left: 5px;">Chamber</label>
+                    </p>
+                </div>
+                <label for="sampAp">Sample Aperture</label>
+                <select id="sampAp" onchange=sampApClick();>
+                    <option value="1.5875">1/16</option>
+                    <option value="3.175">1/8</option>
+                    <option value="4.7625">3/16</option>
+                    <option value="6.35">1/4"</option>
+                    <option value="7.9375">5/16"</option>
+                    <option value="9.525">3/8"</option>
+                    <option value="11.1125">7/16</option>
+                    <option value="12.7" selected="selected">1/2"</option>
+                    <option value="14.2875">9/16"</option>
+                    <option value="15.875">5/8"</option>
+                    <option value="17.4625">11/16"</option>
+                    <option value="19.05">3/4"</option>
+                    <option value="Other">Other</option>
+                </select>
+                <p>
+                    <label for="manAp">Aperture Diameter (mm)</label>
+                    <input id="manAp" onchange="manApChange();" disabled="disabled" />
+                </p>
+            </div>
+            <div id="detector-slider"></div>
+            <div id="offset-slider" style="margin-left: 15px;"></div>
+        </div>
+        <div id="slider1">
+            <p>
+                <label for="guides">Number of Guides:</label>
+                <input id="guides" />
+            </p>
+            <p>
+                <label for="sourceAp">Source Aperture</label>
+                <select id="sourceAp" onchange="sourceApClick();"></select>
+            </p>
+
+        </div>
+        <div id="slider2">
+            <p>
+                <label for="detector">Sample to Detector Distance:</label>
+                <input id="detector" />
+            </p>
+            <p>
+                <label for="offset">Detector Offset is:</label>
+                <input id="offset" />
+            </p>
+        </div>
+        <div>
+            <label for="wavelength">Wavelength:</label>
+            <input id="wavelength" value="6" />
+            <label for="wlSpread" style="margin-left: 10px">Wavelength Spread</label>
+            <select id="wlSpread" onchange="wlSpreadClick();">
+                <option value=0.109>0.109</option>
+                <option value=0.125 selected="selected">0.125</option>
+                <option value=0.236>0.236</option>
+            </select>
+        </div>
+        <div id="lenses">
+            <form>
+                <label for="lens">Lenses?</label>
+                <input type="checkbox" id="lens" onchange="lenses();" style="margin-left: 10px" />
+            </form>
+        </div>
+    </div>
+    <div></div>
+</body>
+
 </html>

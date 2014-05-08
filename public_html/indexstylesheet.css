@@ -53,3 +53,17 @@ h1 {
 #lenses {
     padding-top: 10px;
 }
+
+#guides, #detector, #offset, #wavelength {
+    font-size: 0.7em;
+}
+
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 0.2em;
+}
+
+
